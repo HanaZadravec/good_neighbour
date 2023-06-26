@@ -47,7 +47,7 @@ export default {
   methods: {
     async fetchUserData() {
       try {
-        const response = await axios.get('https://ggg-n4vt.onrender.com/user', {
+        const response = await axios.get('http://localhost:4000/user', {
           headers: { token: localStorage.getItem('token') }
         });
         this.city = response.data.user.address;
@@ -61,7 +61,7 @@ export default {
       const city = this.city;
       const userId = this.userId;
       axios
-        .get(`https://ggg-n4vt.onrender.com/notifications/${city}/${userId}`)
+        .get(`http://localhost:4000/notifications/${city}/${userId}`)
         .then((response) => {
           this.notifications = response.data;
         })
@@ -72,7 +72,7 @@ export default {
     markAsRead(notification) {
       notification.status = 'read';
       axios
-        .put(`https://ggg-n4vt.onrender.com/notifications/${notification._id}`, notification)
+        .put(`http://localhost:4000/notifications/${notification._id}`, notification)
         .then(() => {
           this.fetchNotifications();
         })

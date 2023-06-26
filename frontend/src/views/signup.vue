@@ -88,7 +88,7 @@ export default {
         address:this.address
       }
       console.log(newUser);
-      axios.post("https://ggg-n4vt.onrender.com/register", newUser).then(res =>{
+      axios.post("http://localhost:4000/register", newUser).then(res =>{
         console.log(res);
         alert("Registered successfully!");
         this.$router.push("/login");

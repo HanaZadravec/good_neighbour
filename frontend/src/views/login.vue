@@ -57,7 +57,7 @@
     password: this.password
   };
 
-  axios.post("https://ggg-n4vt.onrender.com/login", user)
+  axios.post("http://localhost:4000/login", user)
     .then(res => {
       if (res.status === 200) {
         localStorage.setItem('token', res.data.token);
