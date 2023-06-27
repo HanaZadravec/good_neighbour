@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./config/db");
 const app = express();
-const path=require('path');
+const history = require('connect-history-api-fallback');
+
 
 mongoose.set("useCreateIndex", true);
 mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -28,19 +29,15 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 
-
 const userRoutes = require("./api/user/route/user");
 app.use(userRoutes);
 
 const crimeRoutes = require("./api/crime/route/crime");
 app.use(crimeRoutes);
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(static('frontend/dist'));
-  app.get('*', (req,res) =>{
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
-  });
-}
+app.use(history({
+  index: '/index.html'
+}));
 
 app.listen(PORT, () => {
   console.log(`App is running on ${PORT}`);
